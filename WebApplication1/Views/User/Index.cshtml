@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users:</h2>
+<ul>
+    @foreach (var u in ViewBag.Users)
+    {
+        <li>@u.RealName <span style="color:red">aka</span> @u.Nik  <span style="color:red">Registrated at</span> @u.RegsiterAt</li>
+    }
+</ul>
+
+<form method="POST" action="~/User/Add">
+    Псевдоним:<input type="text" name="Nik" />
+    Настоящее имя:<input type="text" name="RealName" />
+    Password:<input type="text" name="PassHash" required />
+    Repeat Password:<input type="text" name="rePassword" required />
+    <input type="button" id="buttonSender" value="Вставить" />
+</form>
