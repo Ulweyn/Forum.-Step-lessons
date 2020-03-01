@@ -19,7 +19,7 @@ function(e) {
     }
     const pass1 = $("input[name='PassHash']").val();
     const pass2 = $("input[name='rePassword']").val();
-    if(pass1.
+    //if(pass1.
 
     e.target.closest("form").submit();
 });

@@ -19,8 +19,14 @@ namespace WebApplication1.Models
             {
                 return u;
             }
-            return null;
+            return null; // new User() { Nik = "123" };
+        }
+        public static User GetUserById(int id)
+        {
+            Forum forum = new Forum();
+            return forum.Users.Find(id);//Аналог select по индексному полю
         }
          
     }
+
 }

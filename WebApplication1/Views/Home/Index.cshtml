@@ -2,12 +2,21 @@
     ViewBag.Title = "Home Page";
 }
 <div>Forum</div>
-<div id="="auth_block>
-    <form method="POST">
-        Логин:<input name="user_login" />
-        Password:<input type="password" name="user_pass" />
-        <button>Enter</button>        
-        <input type="button" value="Registration" onclick="window.location ='/User'" />
-        <input type="button" value="Forgot password?" onclick="window.location ='/User'" />
-    </form>
+<div id="auth_block">
+    
+    <hr/>
+    @if (ViewBag.User == null){
+        <form method="post">
+            Логин:<input name="user_login" />
+            Password:<input type="password" name="user_pass" />
+            <button>Login </button>       
+            <input type="button" value="Registration" onclick="window.location ='/User'" />
+            <input type="button" value="Forgot password?" onclick="window.location ='/User'" />
+            
+        </form>
+    } else{
+        <span> Авторизован как @ViewBag.User.Nik</span><a href="?logout">Exit</a>
+
+    }
+    @Session["userId"]
 </div>

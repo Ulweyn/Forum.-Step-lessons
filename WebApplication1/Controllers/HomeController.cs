@@ -13,6 +13,13 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
 
+            if (Request.Params["logout"] != null)
+            {
+                Session["userId"] = null;
+                Server.Transfer("/");
+                
+            }
+
             int usersCnt = forum.Users.Count();
             if (usersCnt == 0)
             {
@@ -85,10 +92,26 @@ namespace WebApplication1.Controllers
 
             //////////
 
-            string login=Request.Params["user_login"];
-            string pass= Request.Params["user_pass"];
-            Models.User user = Models.UserService.GetUserByLogPass(login, pass);
+            if (Session["userId"] != null)
+            {
+                ViewBag.User = Models.UserService.GetUserById(Convert.ToInt32(Session["userId"]));
+            }
+            else
+            {
+                string login = Request.Params["user_login"];//POST данные регистрации                
+                string pass = Request.Params["user_pass"];
+                if (login != null && pass != null)//Проверка на наличие данных
+                {
+                    Models.User user = Models.UserService.GetUserByLogPass(login, pass);
+                    if (user != null)
+                    {
+                        ViewBag.User = user;//пользователь по логину/паролю
+                        Session["userId"] = user.Id;
+                    }
+                }
+            }
 
+            
             return View();
         }
 
