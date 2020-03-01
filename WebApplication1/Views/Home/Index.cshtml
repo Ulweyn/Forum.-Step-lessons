@@ -1,24 +1,13 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<h2>Users:</h2>
-<ul>
-    @foreach(var u in ViewBag.Users)
-    {
-        <li>@u.RealName <span style="color:red">aka</span> @u.Nik</li>
-    }
-</ul>
-<div>
-    @foreach (string s in ViewBag.TP)
-    {
-        <h2>@s</h2>       
-    }
-</div>
-<div id="PostStyle">
-    @foreach(WebApplication1.Models.NikPost res  in ViewBag.query)
-    {
-        <p class="s1">@res.Name</p>
-        <p class="s2">@res.Content</p>
-    }
+<div>Forum</div>
+<div id="="auth_block>
+    <form method="POST">
+        Логин:<input name="user_login" />
+        Password:<input type="password" name="user_pass" />
+        <button>Enter</button>        
+        <input type="button" value="Registration" onclick="window.location ='/User'" />
+        <input type="button" value="Forgot password?" onclick="window.location ='/User'" />
+    </form>
 </div>

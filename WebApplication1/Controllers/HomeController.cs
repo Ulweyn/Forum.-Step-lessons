@@ -82,9 +82,12 @@ namespace WebApplication1.Controllers
             ///////////
 
             ViewBag.query = from u in forum.Users join p in forum.Post on u.Id equals p.IdUser select new Models.NikPost { Name = u.Nik, Content = p.Content };
-            
+
             //////////
 
+            string login=Request.Params["user_login"];
+            string pass= Request.Params["user_pass"];
+            Models.User user = Models.UserService.GetUserByLogPass(login, pass);
 
             return View();
         }
