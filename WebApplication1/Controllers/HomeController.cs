@@ -12,11 +12,19 @@ namespace WebApplication1.Controllers
         Models.Forum forum = new Models.Forum();
         public ActionResult Index()
         {
+            
+            if (Session["Start"]!=null && Convert.ToDateTime(Session["Start"]).AddSeconds(10) <= DateTime.Now)
+            {
+                Session.Clear();
+               
+                Response.Redirect("/");
+            }
 
             if (Request.Params["logout"] != null)
             {
                 Session["userId"] = null;
-                Server.Transfer("/");
+                Response.Redirect("/");
+                
                 
             }
 
@@ -107,6 +115,8 @@ namespace WebApplication1.Controllers
                     {
                         ViewBag.User = user;//пользователь по логину/паролю
                         Session["userId"] = user.Id;
+                        Session["Start"] = DateTime.Now;
+
                     }
                 }
             }
