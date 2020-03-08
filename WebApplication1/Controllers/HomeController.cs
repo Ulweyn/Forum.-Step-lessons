@@ -13,10 +13,10 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             
-            if (Session["Start"]!=null && Convert.ToDateTime(Session["Start"]).AddSeconds(10) <= DateTime.Now)
+            if (Session["Start"]!=null && Convert.ToDateTime(Session["Start"]).AddSeconds(1000) <= DateTime.Now)
             {
                 Session.Clear();
-               
+
                 Response.Redirect("/");
             }
 
@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
                 forum.Theme.Add(new Models.Theme()
                 {
                     Id = 2,
-                    Title = "Поехали",
+                    Title = "Приехали",
                     Description = "Почта, вы всё проебали",
                     IdAutor = 1,
                     DTCreated = DateTime.Now
@@ -87,11 +87,13 @@ namespace WebApplication1.Controllers
                     Content = "Пост УГ",
                     Moment = DateTime.Now
                 });
+
                 forum.SaveChanges();
             }
             ViewBag.Users = forum.Users;
             ViewBag.Themes = forum.Theme;
             ViewBag.Posts = forum.Post;
+            ViewBag.Forum = forum;
             ViewBag.TP = from t in forum.Theme join p in forum.Post on t.Id equals p.IdTheme select p.Content + " " + t.Title;
 
             ///////////
@@ -99,6 +101,7 @@ namespace WebApplication1.Controllers
             ViewBag.query = from u in forum.Users join p in forum.Post on u.Id equals p.IdUser select new Models.NikPost { Name = u.Nik, Content = p.Content };
 
             //////////
+            ViewBag.ThemesInfo = (from t in forum.Theme select new Models.ThemeService() { theme = t}).ToList();
 
             if (Session["userId"] != null)
             {
@@ -137,6 +140,18 @@ namespace WebApplication1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        public string AddTheme(Models.Theme theme)
+        {
+            if(Session["userId"]==null)
+            {
+                return "<b>Please log in</b>";
+            }
+            theme.IdAutor = (int)Session["userId"];
+            theme.DTCreated = DateTime.Now;
+            forum.Theme.Add(theme);
+            forum.SaveChanges();
+            return "<b>Theme added</b> \n <b><a href='/Home'>Back</a></b> ";
         }
         
     }

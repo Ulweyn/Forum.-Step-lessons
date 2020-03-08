@@ -18,5 +18,33 @@
         <span> Авторизован как @ViewBag.User.Nik</span><a href="?logout=1">Exit</a>
 
     }
-    @Session["userId"]
+   <h1>Themes</h1>
+    @{ int n = 1;}
+    <table>
+        @foreach (var t in ViewBag.ThemesInfo)
+        {
+            <tr>
+                <td  style="border:1px solid black">@n</td>
+                <td  style="border:1px solid black" title="@t.theme.Description">@t.theme.Title</td>
+                <td  style="border:1px solid black">от @t.GetAuthor(ViewBag.Forum)</td>
+                <td style="border:1px solid black">количество постов @t.GetPostCount(ViewBag.Forum)</td>
+                @if (t.GetPostCount(ViewBag.Forum) == 0)
+                {
+                <td style="border:1px solid black">Постов еще небыло</td>
+                }
+                else{ 
+                <td style="border:1px solid black">Последний пост от @t.LastPost(ViewBag.Forum)</td>
+                }
+</tr>
+              n++;
+        }        
+    </table>
+    @if (ViewBag.User != null)
+    {
+        <form method="post" action="~/Home/AddTheme">
+            Тема:<input name="Title" />
+            Описание:<input name="Description" />
+            <button >Создать </button>  
+        </form>
+    }   
 </div>
