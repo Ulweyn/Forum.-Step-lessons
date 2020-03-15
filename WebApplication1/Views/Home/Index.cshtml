@@ -25,7 +25,7 @@
         {
             <tr>
                 <td  style="border:1px solid black">@n</td>
-                <td  style="border:1px solid black" title="@t.theme.Description">@t.theme.Title</td>
+                <td  style="border:1px solid black" title="@t.theme.Description"><a href="/Theme/Index/@t.theme.Id">@t.theme.Title</a></td>
                 <td  style="border:1px solid black">от @t.GetAuthor(ViewBag.Forum)</td>
                 <td style="border:1px solid black">количество постов @t.GetPostCount(ViewBag.Forum)</td>
                 @if (t.GetPostCount(ViewBag.Forum) == 0)
@@ -42,8 +42,8 @@
     @if (ViewBag.User != null)
     {
         <form method="post" action="~/Home/AddTheme">
-            Тема:<input name="Title" />
-            Описание:<input name="Description" />
+            Тема:<input name="Title" required />
+            Описание:<input name="Description" required />
             <button >Создать </button>  
         </form>
     }   

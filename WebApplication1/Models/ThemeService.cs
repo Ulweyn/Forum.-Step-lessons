@@ -45,5 +45,10 @@ namespace WebApplication1.Models
             //Post post = postList.Last();
             return dt;
         }
+        public Models.Theme GetThemeById (Forum forum,int id)
+        {
+
+            return forum.Theme.Find(id);
+        }
     }
 }
